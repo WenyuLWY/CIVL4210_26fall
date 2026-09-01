@@ -6,10 +6,10 @@
     <xacro:arg name="robot_namespace" default="/" />
     <xacro:arg name="urdf_extras" default="empty.urdf" />
 
-    <xacro:include filename="$(find scout_description)/urdf/scout_mini_wheel_1.xacro" />
-    <xacro:include filename="$(find scout_description)/urdf/scout_mini_wheel_2.xacro" />
-    <xacro:include filename="$(find scout_description)/urdf/scout_mini_wheel_3.xacro" />
-    <xacro:include filename="$(find scout_description)/urdf/scout_mini_wheel_4.xacro" />
+    <xacro:include filename="$(find robot_simulation)/urdf/scout_mini_wheel_1.xacro" />
+    <xacro:include filename="$(find robot_simulation)/urdf/scout_mini_wheel_2.xacro" />
+    <xacro:include filename="$(find robot_simulation)/urdf/scout_mini_wheel_3.xacro" />
+    <xacro:include filename="$(find robot_simulation)/urdf/scout_mini_wheel_4.xacro" />
     <xacro:include filename="$(find robot_simulation)/urdf/VLP-16.urdf.xacro" />
 
     <!-- Variables -->
@@ -42,10 +42,10 @@
     </joint> -->
 
 
-    <link name="dummy_baselink"/>
-    <joint name="dummy_baselink_joint" type="fixed">
+    <link name="dummy_base_link"/>
+    <joint name="dummy_base_link_joint" type="fixed">
         <origin xyz="0 0 0" rpy="0 0 0" />
-        <parent link="dummy_baselink" />
+        <parent link="dummy_base_link" />
         <child link="base_link" />
     </joint>
 
@@ -98,6 +98,13 @@
         <origin xyz="0 0 0.055" rpy="0 0 3.14" />
         <parent link="base_link" />
         <child link="box_link" />
+    </joint>
+
+    <link name="imu_link"/>
+    <joint name="imu_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="imu_link" />
     </joint>
 
     <!-- <link name="laser_link">
@@ -212,5 +219,5 @@
     <xacro:include filename="$(arg urdf_extras)" />
 
     <!-- Gazebo definitions  -->
-    <xacro:include filename="$(find scout_description)/urdf/scout_mini.gazebo" />
+    <xacro:include filename="$(find robot_simulation)/urdf/scout_mini.gazebo" />
 </robot>

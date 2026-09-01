@@ -1,0 +1,43 @@
+# joint_state_controller:
+#   type: joint_state_controller/JointStateController
+#   publish_rate: 50
+
+arm_pos_controller:
+  type: position_controllers/JointGroupPositionController
+  joints:
+     - ur5e_shoulder_pan_joint
+     - ur5e_shoulder_lift_joint
+     - ur5e_elbow_joint
+     - ur5e_wrist_1_joint
+     - ur5e_wrist_2_joint
+     - ur5e_wrist_3_joint
+
+# ur5e_shoulder_pan_controller:
+#   type: position_controllers/JointPositionController
+#   joint: ur5e_shoulder_pan_joint
+#   pid: {p: 100.0, i: 0.0, d: 5.0}
+
+# ur5e_shoulder_lift_controller:
+#   type: position_controllers/JointPositionController
+#   joint: ur5e_shoulder_lift_joint
+#   pid: {p: 120.0, i: 0.0, d: 6.0}
+
+# ur5e_elbow_controller:
+#   type: position_controllers/JointPositionController
+#   joint: ur5e_elbow_joint
+#   pid: {p: 100.0, i: 0.0, d: 5.0}
+
+# ur5e_wrist_1_controller:
+#   type: position_controllers/JointPositionController
+#   joint: ur5e_wrist_1_joint
+#   pid: {p: 60.0, i: 0.0, d: 3.0}
+
+# ur5e_wrist_2_controller:
+#   type: position_controllers/JointPositionController
+#   joint: ur5e_wrist_2_joint
+#   pid: {p: 60.0, i: 0.0, d: 3.0}
+
+# ur5e_wrist_3_controller:
+#   type: position_controllers/JointPositionController
+#   joint: ur5e_wrist_3_joint
+#   pid: {p: 40.0, i: 0.0, d: 2.0}

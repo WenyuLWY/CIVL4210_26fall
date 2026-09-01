@@ -26,13 +26,15 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 <launch>
 
     <arg name="robot_namespace" default="/"/>
-    <arg name="world_name" default="$(find scout_gazebo_sim)/worlds/clearpath_playpen.world"/>
+    <!-- <arg name="world_name" default="$(find scout_gazebo_sim)/worlds/clearpath_playpen.world"/> -->
+    <arg name="world_name" default="$(find robot_simulation)/world/building.world"/>
+
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(arg world_name)"/>
         <arg name="paused" value="false"/>
         <arg name="use_sim_time" value="true"/>
-        <arg name="gui" value="false"/>
+        <arg name="gui" value="true"/>
         <arg name="headless" value="false"/>
         <arg name="debug" value="false"/>
     </include>
@@ -40,14 +42,14 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <include file="$(find robot_simulation)/launch/spawn_scout_mini.launch">
     </include>
 
-    <!-- localization -->
-    <node pkg="robot_simulation" type="localization_sim" name="localization_sim_node" output="screen">
-        <param name="laserCloudTopic"           value="/velodyne_points"/>
-        <param name="robotName"                 value="scout"/>
-    </node>
-    <node pkg="tf2_ros" type="static_transform_publisher" name="mappingPublisher"  args="0 0 0 0 0 0 map odom"/>
 
+    <include file="$(find robot_simulation)/launch/robot_localization.launch">
+    </include>
 
-    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find robot_simulation)/rviz/run.rviz" />
+    <include file="$(find robot_simulation)/launch/robot_pathplanning.launch">
+    </include>
+
+    <include file="$(find robot_simulation)/launch/robot_visualization.launch">
+    </include>
 
 </launch>

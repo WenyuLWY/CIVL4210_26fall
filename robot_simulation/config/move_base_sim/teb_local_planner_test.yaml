@@ -1,0 +1,52 @@
+TebLocalPlannerROS:
+
+  odom_topic: odom
+  map_frame: map
+  
+  # 3.2.1 Robot Configuration Parameters
+  max_vel_x: 0.5
+  max_vel_x_backwards: 0.5
+  max_vel_theta: 0.3
+  acc_lim_x: 0.5
+  acc_lim_theta: 0.5
+
+  # only for carlike robots:
+  # min_turning_radius: 0     # 先填一个保守值，后面按实车再调 ##################################################################################
+  # wheelbase: 0.5             # 这里先填你的前后桥中心距
+  # cmd_angle_instead_rotvel: False
+
+  footprint_model:
+    type: "polygon"
+    # vertices: [[0.58, 0.38], [0.58, -0.38], [-0.58, -0.38], [-0.58, 0.38]]
+    vertices: [[-0.625, -0.450], [-0.625, 0.450], [0.625, 0.450], [0.625, -0.450]]
+
+  #3.2.2 Goal Tolerance Parameters
+  xy_goal_tolerance: 0.2
+  yaw_goal_tolerance: 3.14
+  free_goal_vel: True
+
+  #3.3.3 Trajectory Configuration Parameters
+  global_plan_overwrite_orientation: true  ########################
+  allow_init_with_backwards_motion: True
+  publish_feedback: True
+  exact_arc_length: False
+  # global_plan_prune_distance: 1.0 #???
+
+
+  #3.2.4 Obstacle Parameters
+  min_obstacle_dist: 0.5
+  # inflation_dist: 0.40
+  include_costmap_obstacles: true
+  include_dynamic_obstacles: False
+  costmap_obstacles_behind_robot_dist: 1.0
+
+  #3.2.5 Optimization Parameters
+  weight_max_vel_x: 1.0
+  weight_max_vel_theta: 1.0
+  weight_acc_lim_x: 1.0
+  weight_acc_lim_theta: 1.0
+  weight_kinematics_nh: 1000.0
+  weight_kinematics_forward_drive: 1 #1
+  weight_kinematics_turning_radius: 1.0
+
+  #3.2.6 Parallel Planning in distinctive Topologies

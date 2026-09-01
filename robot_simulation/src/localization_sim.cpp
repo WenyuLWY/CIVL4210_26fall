@@ -157,7 +157,7 @@ namespace RobotSimulation
 
             nav_msgs::Odometry odometry; 
             odometry.header.frame_id = "odom";
-            odometry.child_frame_id = "dummy_baselink";
+            odometry.child_frame_id = "dummy_base_link";
             odometry.header.stamp = msg->header.stamp;
             odometry.pose.pose = tf2::toMsg(transformMat);
             pubOdometry.publish(odometry);
@@ -165,7 +165,7 @@ namespace RobotSimulation
             geometry_msgs::TransformStamped transformStamped;
             transformStamped.header.stamp = msg->header.stamp;
             transformStamped.header.frame_id = "odom";
-            transformStamped.child_frame_id = "dummy_baselink";
+            transformStamped.child_frame_id = "dummy_base_link";
             transformStamped.transform = tf2::eigenToTransform(transformMat).transform;
             tfBroadcaster.sendTransform(transformStamped);
 
