@@ -53,40 +53,26 @@ ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCL
   </node>
 
 
- 
-  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
 
-    <param name="base_global_planner"    value="global_planner/GlobalPlanner"/>
-    <!-- navfn/NavfnROS or global_planner/GlobalPlanner -->
-    <param name="base_local_planner"   value="dwa_local_planner/DWAPlannerROS"/> 
-    <!-- <param name="base_local_planner"   value="teb_local_planner/TebLocalPlannerROS"/>  -->
-
+  <!-- navfn/NavfnROS or global_planner/GlobalPlanner -->
+  <!-- <param name="base_local_planner"   value="teb_local_planner/TebLocalPlannerROS"/>  -->
+ <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="log">
+    <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/>  
     <param name="global_frame_id" value="map" />
     <param name="odom_frame_id" value="odom" />
     <param name="base_frame_id" value="dummy_base_link" />
-    
-
-
+    <rosparam file="$(find robot_simulation)/config/move_base/planner.yaml" command="load"/>
     <!-- observation sources located in costmap_common.yaml -->
     <rosparam file="$(find robot_simulation)/config/move_base/costmap_common.yaml" command="load" ns="global_costmap" />
     <rosparam file="$(find robot_simulation)/config/move_base/costmap_common.yaml" command="load" ns="local_costmap" />
 
     <!-- local costmap, needs size -->
-    <rosparam file="$(find robot_simulation)/config/move_base/global_costmap.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find robot_simulation)/config/move_base/local_costmap.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find robot_simulation)/config/move_base/costmap_local.yaml" command="load" ns="local_costmap" />
 
-    <rosparam file="$(find robot_simulation)/config/move_base/move_base_params.yaml" command="load" />
-    <rosparam file="$(find robot_simulation)/config/move_base/global_planner.yaml" command="load" />
-
-    <!-- <rosparam file="$(find robot_simulation)/cfg/planner.yaml"          command="load"/> -->
-    <rosparam file="$(find robot_simulation)/config/move_base/dwa_local_planner.yaml" command="load" />
     <!-- static global costmap, static map provides size -->
-    <!-- <rosparam file="$(find robot_simulation)/config/costmap_global_static.yaml" command="load" ns="global_costmap" unless="$(arg no_static_map)"/> -->
+    <rosparam file="$(find robot_simulation)/config/move_base/costmap_global_static.yaml" command="load" ns="global_costmap" unless="$(arg no_static_map)"/>
     
-    <!-- global costmap with laser, for odom_navigation_demo -->
-    <!-- <rosparam file="$(find robot_simulation)/config/costmap_global_laser.yaml" command="load" ns="global_costmap" if="$(arg no_static_map)"/> -->
-    <!-- <param name="global_costmap/width" value="100.0" if="$(arg no_static_map)"/> -->
-    <!-- <param name="global_costmap/height" value="100.0" if="$(arg no_static_map)"/> -->
   </node>
 
 </launch>

@@ -25,16 +25,18 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
 -->
 <launch>
 
+    <param name="/use_sim_time"             value="true" />
+
     <arg name="robot_namespace" default="/"/>
     <!-- <arg name="world_name" default="$(find scout_gazebo_sim)/worlds/clearpath_playpen.world"/> -->
-    <arg name="world_name" default="$(find robot_simulation)/world/building.world"/>
+    <arg name="world_name" default="$(find robot_simulation)/world/room_with_corner.world"/>
 
 
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="world_name" value="$(arg world_name)"/>
         <arg name="paused" value="false"/>
         <arg name="use_sim_time" value="true"/>
-        <arg name="gui" value="true"/>
+        <arg name="gui" value="false"/>
         <arg name="headless" value="false"/>
         <arg name="debug" value="false"/>
     </include>
@@ -42,12 +44,17 @@ ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSI
     <include file="$(find robot_simulation)/launch/spawn_scout_mini.launch">
     </include>
 
+    <!-- <include file="$(find robot_simulation)/launch/spawn_husky.launch">
+        <arg name="laser_3d_enabled"          default="1"/>
+    </include> -->
 
-    <include file="$(find robot_simulation)/launch/robot_localization.launch">
-    </include>
+   
 
     <include file="$(find robot_simulation)/launch/robot_pathplanning.launch">
     </include>
+
+    <!-- <include file="$(find robot_simulation)/launch/robot_localization.launch">
+    </include> -->
 
     <include file="$(find robot_simulation)/launch/robot_visualization.launch">
     </include>

@@ -57,6 +57,8 @@ RUN mkdir -p /root/catkin_ws/src && \
     echo "source /root/catkin_ws/devel/setup.bash" >> ~/.bashrc
 
 RUN apt-get update && apt-get install -y ros-noetic-hector-trajectory-server ros-noetic-hector-gazebo-plugins ros-noetic-pointcloud-to-laserscan ros-noetic-navigation
+RUN apt-get update && apt-get install -y ros-noetic-husky*
+RUN apt-get update && apt-get install -y ros-noetic-rtabmap-ros ros-noetic-libpointmatcher ros-noetic-libg2o ros-noetic-gtsam
 
 RUN echo "#!/bin/bash" > /root/start.sh && \
     echo "cd /root/catkin_ws" >> /root/start.sh && \
@@ -64,7 +66,9 @@ RUN echo "#!/bin/bash" > /root/start.sh && \
     echo "source ~/dependencies_catkin_ws/devel/setup.bash" >> /root/start.sh && \
     echo "catkin config --extend /root/dependencies_catkin_ws/devel" >> /root/start.sh && \
     echo "catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release" >> /root/start.sh && \
-    echo "catkin build" >> /root/start.sh && \ 
+    echo "CORES=\$(nproc)" >> /root/start.sh && \
+    echo "JOBS=\$((CORES>1 ? CORES-1 : 1))" >> /root/start.sh && \
+    echo "catkin build -j\$JOBS" >> /root/start.sh && \
     echo "source ~/catkin_ws/devel/setup.bash" >> /root/start.sh && \
     echo "exec \"\$@\"" >> /root/start.sh && \
     chmod +x /root/start.sh
