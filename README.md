@@ -1,4 +1,4 @@
-# install wsl
+# install wsl and docker desktop on windows
 
 download docker desktop
 
@@ -6,10 +6,23 @@ run
 wsl --install
 in powershell
 
+wsl --set-default Ubuntu
 
-# assignment6b path planning
+# workspace setup
+
+in wsl
 
 git clone https://github.com/WenyuLWY/CIVL4210_26fall.git
+
+# assignment6b path planning
+## unitree go2
+
+docker pull joriswenyuli/ros_go2_sim
+bash run.sh
+
+## agilex scout
+
+
 
 git clone https://github.com/agilexrobotics/ugv_gazebo_sim.git
 
