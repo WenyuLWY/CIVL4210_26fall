@@ -25,12 +25,16 @@ RUN git clone https://github.com/cartographer-project/cartographer.git --depth 1
 RUN git clone https://github.com/cartographer-project/cartographer_ros.git --depth 1 -b master /root/dependencies_catkin_ws/src/cartographer_ros
 RUN git clone https://bitbucket.org/DataspeedInc/velodyne_simulator.git --depth 1 -b master /root/dependencies_catkin_ws/src/velodyne_simulator
 RUN git clone https://github.com/agilexrobotics/ugv_gazebo_sim.git --depth 1 -b master /root/dependencies_catkin_ws/src/ugv_gazebo_sim
+RUN git clone https://github.com/WenyuLWY/autonomous_exploration_development_environment.git --depth 1 -b main /root/dependencies_catkin_ws/src/autonomous_exploration_development_environment
+# RUN git clone https://github.com/vectr-ucla/direct_lidar_odometry.git --depth 1 -b master /root/dependencies_catkin_ws/src/direct_lidar_odometry
+# RUN git clone https://github.com/vectr-ucla/direct_lidar_inertial_odometry.git --depth 1 -b master /root/dependencies_catkin_ws/src/direct_lidar_inertial_odometry
+RUN git clone https://github.com/WenyuLWY/direct_lidar_odometry.git --depth 1 -b master /root/dependencies_catkin_ws/src/direct_lidar_odometry
+RUN git clone https://github.com/WenyuLWY/direct_lidar_inertial_odometry.git --depth 1 -b master /root/dependencies_catkin_ws/src/direct_lidar_inertial_odometry
+
 
 #develop
 # RUN apt-get update && apt-get install -y ros-noetic-hector-trajectory-server  ros-noetic-tf2-sensor-msgs ros-noetic-geographic-msgs
 
-#autonomous_exploration_development_environment
-# RUN apt-get update && apt-get install -y libusb-dev
 #DLO
 # RUN apt-get update && apt-get install -y libomp-dev libpcl-dev libeigen3-dev 
 #DSV planner
@@ -41,8 +45,6 @@ RUN git clone https://github.com/agilexrobotics/ugv_gazebo_sim.git --depth 1 -b 
 # RUN apt-get update && apt-get install -y ros-noetic-pointcloud-to-laserscan ros-noetic-point-cloud2-filters ros-noetic-navigation ros-noetic-teb-local-planner
 # RUN apt-get update && apt-get install -y ros-noetic-explore-lite
 
-# RUN git clone https://github.com/vectr-ucla/direct_lidar_odometry.git --depth 1 /root/dependencies_catkin_ws/src/direct_lidar_odometry
-# RUN git clone https://github.com/vectr-ucla/direct_lidar_inertial_odometry.git --depth 1 /root/dependencies_catkin_ws/src/direct_lidar_inertial_odometry
 # RUN git clone https://github.com/hku-mars/FAST_LIO.git --depth 1 /root/dependencies_catkin_ws/src/FAST_LIO && cd /root/dependencies_catkin_ws/src/FAST_LIO && \
     # git submodule update --init
 
@@ -57,8 +59,10 @@ RUN mkdir -p /root/catkin_ws/src && \
     echo "source /root/catkin_ws/devel/setup.bash" >> ~/.bashrc
 
 RUN apt-get update && apt-get install -y ros-noetic-hector-trajectory-server ros-noetic-hector-gazebo-plugins ros-noetic-pointcloud-to-laserscan ros-noetic-navigation
-RUN apt-get update && apt-get install -y ros-noetic-husky*
 RUN apt-get update && apt-get install -y ros-noetic-rtabmap-ros ros-noetic-libpointmatcher ros-noetic-libg2o ros-noetic-gtsam
+# RUN apt-get update && apt-get install -y ros-noetic-husky*
+#autonomous_exploration_development_environment
+RUN apt-get update && apt-get install -y libusb-dev
 
 RUN echo "#!/bin/bash" > /root/start.sh && \
     echo "cd /root/catkin_ws" >> /root/start.sh && \

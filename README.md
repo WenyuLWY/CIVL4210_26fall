@@ -15,10 +15,7 @@ in wsl
 git clone https://github.com/WenyuLWY/CIVL4210_26fall.git
 
 # assignment6b path planning
-## unitree go2
 
-docker pull joriswenyuli/ros_go2_sim
-bash run.sh
 
 ## agilex scout
 
@@ -38,3 +35,7 @@ git lfs track "assignment6b_path_planning/unitree/docker/smith_hall_2nd_floor.db
 git lfs untrack "assignment6b_path_planning/unitree/docker/unity_env_home_building_1.zip"
 git lfs untrack "assignment6b_path_planning/unitree/docker/smith_hall_2nd_floor.db3"
 
+## unitree go2
+
+docker pull joriswenyuli/ros_go2_sim
+bash run.sh
