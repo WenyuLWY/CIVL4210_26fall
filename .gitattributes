@@ -1,2 +1,0 @@
-assignment6b_path_planning/unitree/docker/unity_env_home_building_1.zip filter=lfs diff=lfs merge=lfs -text
-assignment6b_path_planning/unitree/docker/smith_hall_2nd_floor.db3 filter=lfs diff=lfs merge=lfs -text

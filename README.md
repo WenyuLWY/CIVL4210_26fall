@@ -22,3 +22,6 @@ roslaunch robot_simulation robot_pathplanning.launch
 git lfs track "assignment6b_path_planning/unitree/docker/unity_env_home_building_1.zip"
 git lfs track "assignment6b_path_planning/unitree/docker/smith_hall_2nd_floor.db3"
 
+git lfs untrack "assignment6b_path_planning/unitree/docker/unity_env_home_building_1.zip"
+git lfs untrack "assignment6b_path_planning/unitree/docker/smith_hall_2nd_floor.db3"
+
