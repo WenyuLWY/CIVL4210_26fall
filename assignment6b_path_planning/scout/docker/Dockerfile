@@ -62,6 +62,7 @@ RUN mkdir -p /root/catkin_ws/src && \
 
 RUN apt-get update && apt-get install -y ros-noetic-hector-trajectory-server ros-noetic-hector-gazebo-plugins ros-noetic-pointcloud-to-laserscan ros-noetic-navigation
 RUN apt-get update && apt-get install -y ros-noetic-rtabmap-ros ros-noetic-libpointmatcher ros-noetic-libg2o ros-noetic-gtsam
+RUN apt-get update && apt-get install -y ros-noetic-octomap*
 
 # RUN apt-get update && apt-get install -y ros-noetic-husky*
 

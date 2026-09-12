@@ -50,14 +50,15 @@ namespace RobotSimulation
         ros::Subscriber subModelState;
         ros::Subscriber subLaserCloud;
         ros::Publisher pubOdometry;
-        // tf2_ros::TransformBroadcaster tfBroadcaster;
+        tf2_ros::TransformBroadcaster tfBroadcaster;
 
         std::string robot_name = "scout";
         std::string laserCloudTopic;
+        bool publishTF = true;
 
         int model_index = -1;
 
-        Eigen::Affine3d initTransformMat;
+        Eigen::Affine3d initTransformMat= Eigen::Affine3d::Identity();;
 
         bool init = false;
         int count = 0;
@@ -73,6 +74,7 @@ namespace RobotSimulation
         {
             private_nh.param<std::string>("laserCloudTopic",laserCloudTopic,"/velodyne_points");
             private_nh.param<std::string>("robotName", robot_name,"scout");
+            private_nh.param<bool>("publishTF", publishTF, false);
         }
 
 
@@ -162,12 +164,14 @@ namespace RobotSimulation
             odometry.pose.pose = tf2::toMsg(transformMat);
             pubOdometry.publish(odometry);
 
-            // geometry_msgs::TransformStamped transformStamped;
-            // transformStamped.header.stamp = msg->header.stamp;
-            // transformStamped.header.frame_id = "odom";
-            // transformStamped.child_frame_id = "dummy_base_link";
-            // transformStamped.transform = tf2::eigenToTransform(transformMat).transform;
-            // tfBroadcaster.sendTransform(transformStamped);
+            if (!publishTF)
+                return;
+            geometry_msgs::TransformStamped transformStamped;
+            transformStamped.header.stamp = msg->header.stamp;
+            transformStamped.header.frame_id = "odom";
+            transformStamped.child_frame_id = "dummy_base_link";
+            transformStamped.transform = tf2::eigenToTransform(transformMat).transform;
+            tfBroadcaster.sendTransform(transformStamped);
 
         }
     };

@@ -145,50 +145,22 @@ namespace RobotSimulation
                 }
             }
 
-            subOdometry.subscribe(nh, sub_odometry_topic, 50);
-            subLaserCloud.subscribe(nh, cloud_topic, 50);
-            sync_.reset(new Sync(syncPolicy(50), subOdometry, subLaserCloud));
-            sync_->registerCallback(boost::bind(&SensorInputNode::laserCloudAndOdometryHandler, this, _1, _2));
-
+           
             pubLaserCloudRegistered = nh.advertise<sensor_msgs::PointCloud2>("/registered_scan", 10);
             pubLaserCloudSensorscan = nh.advertise<sensor_msgs::PointCloud2>("/sensor_scan", 10);
             pubOdometry = nh.advertise<nav_msgs::Odometry>(pub_odometry_topic, 10);
             pubOdometryScan = nh.advertise<nav_msgs::Odometry>("/state_estimation_at_scan", 10);
             pubCropBox = nh.advertise<visualization_msgs::Marker>("/vehicle_box", 1, true);
 
-            visualization_msgs::Marker marker;
-            marker.header.frame_id = "sensor";
-            marker.header.stamp = ros::Time(0); //ros::Time::now()
-            marker.ns = "vehicle_box";
-            marker.id = 0;
-            marker.type = visualization_msgs::Marker::CUBE;
-            marker.action = visualization_msgs::Marker::ADD;
+            
 
-            // box center
-            marker.pose.position.x = (min_x + max_x) / 2.0;
-            marker.pose.position.y = (min_y + max_y) / 2.0;
-            marker.pose.position.z = (min_z + max_z) / 2.0;
 
-            marker.pose.orientation.x = 0.0;
-            marker.pose.orientation.y = 0.0;
-            marker.pose.orientation.z = 0.0;
-            marker.pose.orientation.w = 1.0;
+            // pubCropBox.publish(marker);
 
-            // box size
-            marker.scale.x = max_x - min_x;
-            marker.scale.y = max_y - min_y;
-            marker.scale.z = max_z - min_z;
-
-            // green
-            marker.color.r = 0.0;
-            marker.color.g = 1.0;
-            marker.color.b = 0.0;
-            marker.color.a = 0.25;
-
-            marker.lifetime = ros::Duration(0);
-
-            pubCropBox.publish(marker);
-
+            subOdometry.subscribe(nh, sub_odometry_topic, 50);
+            subLaserCloud.subscribe(nh, cloud_topic, 50);
+            sync_.reset(new Sync(syncPolicy(50), subOdometry, subLaserCloud));
+            sync_->registerCallback(boost::bind(&SensorInputNode::laserCloudAndOdometryHandler, this, _1, _2));
         }
 
         ~SensorInputNode()
@@ -243,6 +215,8 @@ namespace RobotSimulation
         Eigen::Affine3d SensorCorrectMat;
 
         pcl::CropBox<PointT> crop_filter;
+
+        visualization_msgs::Marker marker;
 
         void readParameters()
         {
@@ -329,6 +303,38 @@ namespace RobotSimulation
             pubOdometry.publish(odom);
             pubLaserCloudRegistered.publish(laserCloudRegistered);
             tfBroadcaster.sendTransform(transformStamped);
+
+
+            marker.header.frame_id = "sensor";
+            marker.header.stamp = ros::Time(0); //ros::Time::now()
+            marker.ns = "vehicle_box";
+            marker.id = 0;
+            marker.type = visualization_msgs::Marker::CUBE;
+            marker.action = visualization_msgs::Marker::ADD;
+
+            // box center
+            marker.pose.position.x = (min_x + max_x) / 2.0;
+            marker.pose.position.y = (min_y + max_y) / 2.0;
+            marker.pose.position.z = (min_z + max_z) / 2.0;
+
+            marker.pose.orientation.x = 0.0;
+            marker.pose.orientation.y = 0.0;
+            marker.pose.orientation.z = 0.0;
+            marker.pose.orientation.w = 1.0;
+
+            // box size
+            marker.scale.x = max_x - min_x;
+            marker.scale.y = max_y - min_y;
+            marker.scale.z = max_z - min_z;
+
+            // green
+            marker.color.r = 0.0;
+            marker.color.g = 1.0;
+            marker.color.b = 0.0;
+            marker.color.a = 0.25;
+
+            marker.lifetime = ros::Duration(0);
+            pubCropBox.publish(marker);
 
             
         }

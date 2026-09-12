@@ -3,16 +3,13 @@
 <launch>
 
 
-  <!-- <include file="$(find robot_simulation)/launch/robot_pathplanning1.launch">
-  </include> -->
+  <include file="$(find robot_simulation)/launch/robot_environment.launch">
+  </include>
 
-  <include file="$(find robot_simulation)/launch/robot_pathplanning2.launch">
-    <arg name="sensorOffsetX"   value="0" />
-    <arg name="sensorOffsetY"   value="0" />
-    <arg name="vehicleLength"   value="0.64" />
-    <arg name="vehicleWidth"    value="0.64" />
-    <arg name="maxSpeed"        value="1" />
-    <arg name="maxAccel"        value="1.5" />
+  <include file="$(find robot_simulation)/launch/run2_localization.launch">
+  </include>
+
+  <include file="$(find robot_simulation)/launch/run2_planning.launch">
   </include>
 
 </launch>
