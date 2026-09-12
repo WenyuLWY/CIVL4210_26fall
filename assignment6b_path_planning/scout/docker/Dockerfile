@@ -35,8 +35,10 @@ RUN git clone https://github.com/WenyuLWY/direct_lidar_inertial_odometry.git --d
 #develop
 # RUN apt-get update && apt-get install -y ros-noetic-hector-trajectory-server  ros-noetic-tf2-sensor-msgs ros-noetic-geographic-msgs
 
+#autonomous_exploration_development_environment
+RUN apt-get update && apt-get install -y libusb-dev
 #DLO
-# RUN apt-get update && apt-get install -y libomp-dev libpcl-dev libeigen3-dev 
+RUN apt-get update && apt-get install -y libomp-dev libpcl-dev libeigen3-dev 
 #DSV planner
 # RUN apt-get update && apt-get install -y ros-noetic-octomap-ros libgoogle-glog-dev libgflags-dev
 #RTABMAP
@@ -60,9 +62,8 @@ RUN mkdir -p /root/catkin_ws/src && \
 
 RUN apt-get update && apt-get install -y ros-noetic-hector-trajectory-server ros-noetic-hector-gazebo-plugins ros-noetic-pointcloud-to-laserscan ros-noetic-navigation
 RUN apt-get update && apt-get install -y ros-noetic-rtabmap-ros ros-noetic-libpointmatcher ros-noetic-libg2o ros-noetic-gtsam
+
 # RUN apt-get update && apt-get install -y ros-noetic-husky*
-#autonomous_exploration_development_environment
-RUN apt-get update && apt-get install -y libusb-dev
 
 RUN echo "#!/bin/bash" > /root/start.sh && \
     echo "cd /root/catkin_ws" >> /root/start.sh && \
