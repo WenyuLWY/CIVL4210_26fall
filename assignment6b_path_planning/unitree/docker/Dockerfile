@@ -26,12 +26,18 @@ RUN mkdir -p /root/ros2_ws/src && \
     echo "source /root/ros2_ws/install/setup.bash" >> ~/.bashrc
 
 RUN pip install gdown
-RUN gdown 14nv2wHFyWCAncolp82zXD_W5zBtWWhwj --speed 0 
+RUN gdown 14nv2wHFyWCAncolp82zXD_W5zBtWWhwj
+RUN gdown 1itiC0Sd0q30vW5gbhRUuBHVUAtkSYJT9
+RUN gdown 1pQ26vORBGeTitQsmoOIAs6AJAtkpqBzV
+
+RUN apt-get update && apt-get install -y unzip
+RUN unzip -o unity_env_home_building_1.zip -d /root/ros2_ws/src/autonomy_stack_go2/src/base_autonomy/vehicle_simulator/mesh/unity
+RUN rm unity_env_home_building_1.zip
 
 RUN echo "#!/bin/bash" > /root/start.sh && \
     echo "cd /root/ros2_ws" >> /root/start.sh && \
     echo "source /opt/ros/humble/setup.bash" >> /root/start.sh && \
-    echo "colcon build  --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release" >> /root/start.sh && \
+    # echo "colcon build  --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release" >> /root/start.sh && \
     echo "source /root/ros2_ws/install/setup.bash" >> /root/start.sh && \
     echo "exec \"\$@\"" >> /root/start.sh && \
     chmod +x /root/start.sh
