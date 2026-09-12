@@ -12,20 +12,20 @@ fi
 
 PKG_ROOT_DIR=$(dirname "$(dirname "$(readlink -f "$0")")")
 MOUNT_ARGS=""
-MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/.vscode:/root/catkin_ws/src/.vscode"
-MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/.git:/root/catkin_ws/src/.git"
+MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/.vscode:/root/ros2_ws/src/.vscode"
+MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/.git:/root/ros2_ws/src/.git"
 
 
-mkdir -p $PKG_ROOT_DIR/tmp/{devel,build,logs}
 for path in "$PKG_ROOT_DIR"/*; do
     name=$(basename "$path")
     if [ "$name" != "tmp" ]; then
-        MOUNT_ARGS="$MOUNT_ARGS -v $path:/root/catkin_ws/src/$name"
+        MOUNT_ARGS="$MOUNT_ARGS -v $path:/root/ros2_ws/src/$name"
     fi
 done
-MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/build:/root/catkin_ws/build"
-MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/devel:/root/catkin_ws/devel"
-MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/logs:/root/catkin_ws/logs"
+# mkdir -p $PKG_ROOT_DIR/tmp/{build,install,log}
+# MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/build:/root/ros2_ws/build"
+# MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/install:/root/ros2_ws/install"
+# MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/log:/root/ros2_ws/log"
 
 # -e XDG_RUNTIME_DIR=/tmp/runtime-root \
 if grep -qi microsoft /proc/version; then # Check if running in WSL
@@ -40,7 +40,6 @@ if grep -qi microsoft /proc/version; then # Check if running in WSL
       -v /mnt/wslg:/mnt/wslg \
       -v /tmp/.X11-unix:/tmp/.X11-unix \
       -v /usr/lib/wsl:/usr/lib/wsl \
-      -v ~/gazebo_models:/root/.gazebo/models \
       $MOUNT_ARGS \
       $IMAGE_NAME bash
 else # Running in ubuntu environment
@@ -59,7 +58,6 @@ else # Running in ubuntu environment
       -v $XAUTH:/root/.docker.$CONTAINER_NAME.xauth \
       -v /tmp/.X11-unix:/tmp/.X11-unix:rw \
       -v /etc/localtime:/etc/localtime:ro \
-      -v ~/.gazebo/models:/root/.gazebo/models \
       $MOUNT_ARGS \
       $IMAGE_NAME bash
 fi

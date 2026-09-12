@@ -13,31 +13,17 @@ RUN echo "source /opt/ros/foxy/setup.bash" >> ~/.bashrc
 
 WORKDIR /root
 
-# RUN apt-get update && apt-get install -y libfmt-dev
-# RUN git clone https://github.com/unitreerobotics/unitree_sdk2.git && cd unitree_sdk2 && \
-#     mkdir build && cd build &&\
-#     cmake .. && \
-#     make install
-    
-# RUN cd unitree_sdk2/build && \   
-#     cmake .. && \
-#     make
+RUN mkdir -p /root/ros2_ws/src && \
+    cd ~/ros2_ws && \
+    bash -c "source /opt/ros/foxy/setup.bash && colcon build" && \
+    echo "source /root/ros2_ws/install/setup.bash" >> ~/.bashrc
 
-RUN apt-get update && apt-get install -y iputils-ping iproute2
-
-# RUN mkdir -p /root/catkin_ws/src && \
-#     cd /root/catkin_ws && \
-#     bash -c "source /opt/ros/noetic/setup.bash && catkin build" && \
-#     echo "source /root/catkin_ws/devel/setup.bash" >> ~/.bashrc
 
 RUN echo "#!/bin/bash" > /root/start.sh && \
-#     echo "cd /root/catkin_ws" >> /root/start.sh && \
-#     echo "source /opt/ros/noetic/setup.bash" >> /root/start.sh && \
-#     echo "catkin config --cmake-args -DCMAKE_BUILD_TYPE=Release" >> /root/start.sh && \
-#     echo "CORES=\$(nproc)" >> /root/start.sh && \
-#     echo "JOBS=\$((CORES>1 ? CORES-1 : 1))" >> /root/start.sh && \
-#     echo "catkin build -j\$JOBS" >> /root/start.sh && \
-#     echo "source ~/catkin_ws/devel/setup.bash" >> /root/start.sh && \
+    echo "cd /root/ros2_ws" >> /root/start.sh && \
+    echo "source /opt/ros/foxy/setup.bash" >> /root/start.sh && \
+    echo "colcon build  --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release" >> /root/start.sh && \
+    echo "source /root/ros2_ws/install/setup.bash" >> /root/start.sh && \
     echo "exec \"\$@\"" >> /root/start.sh && \
     chmod +x /root/start.sh
 
