@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+
+<launch>
+
+
+  <include file="$(find robot_simulation)/launch/robot_localization.launch">
+  </include>
+
+
+
+</launch>

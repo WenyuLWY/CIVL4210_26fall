@@ -50,7 +50,7 @@ namespace RobotSimulation
         ros::Subscriber subModelState;
         ros::Subscriber subLaserCloud;
         ros::Publisher pubOdometry;
-        tf2_ros::TransformBroadcaster tfBroadcaster;
+        // tf2_ros::TransformBroadcaster tfBroadcaster;
 
         std::string robot_name = "scout";
         std::string laserCloudTopic;
@@ -162,12 +162,12 @@ namespace RobotSimulation
             odometry.pose.pose = tf2::toMsg(transformMat);
             pubOdometry.publish(odometry);
 
-            geometry_msgs::TransformStamped transformStamped;
-            transformStamped.header.stamp = msg->header.stamp;
-            transformStamped.header.frame_id = "odom";
-            transformStamped.child_frame_id = "dummy_base_link";
-            transformStamped.transform = tf2::eigenToTransform(transformMat).transform;
-            tfBroadcaster.sendTransform(transformStamped);
+            // geometry_msgs::TransformStamped transformStamped;
+            // transformStamped.header.stamp = msg->header.stamp;
+            // transformStamped.header.frame_id = "odom";
+            // transformStamped.child_frame_id = "dummy_base_link";
+            // transformStamped.transform = tf2::eigenToTransform(transformMat).transform;
+            // tfBroadcaster.sendTransform(transformStamped);
 
         }
     };

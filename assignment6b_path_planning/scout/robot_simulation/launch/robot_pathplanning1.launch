@@ -31,10 +31,12 @@
 
 
 
-  <!-- navfn/NavfnROS or global_planner/GlobalPlanner -->
-  <!-- <param name="base_local_planner"   value="teb_local_planner/TebLocalPlannerROS"/>  -->
+  
+  
  <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="log">
-    <param name="base_global_planner" value="global_planner/GlobalPlanner"/>
+    <!-- navfn/NavfnROS or global_planner/GlobalPlanner -->
+    <param name="base_global_planner" value="navfn/NavfnROS"/>
+    <!-- dwa_local_planner/DWAPlannerROS or teb_local_planner/TebLocalPlannerROS"/>  -->
     <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS"/>  
     <param name="global_frame_id" value="map" />
     <param name="odom_frame_id" value="odom" />
