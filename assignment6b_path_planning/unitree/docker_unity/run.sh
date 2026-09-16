@@ -16,20 +16,21 @@ MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/.vscode:/root/ros2_ws/src/.vscode"
 MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/.git:/root/ros2_ws/src/.git"
 
 
-mkdir -p $PKG_ROOT_DIR/tmp/{build,install,log}
 for path in "$PKG_ROOT_DIR"/*; do
     name=$(basename "$path")
     if [ "$name" != "tmp" ]; then
         MOUNT_ARGS="$MOUNT_ARGS -v $path:/root/ros2_ws/src/$name"
     fi
 done
-MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/build:/root/ros2_ws/build"
-MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/install:/root/ros2_ws/install"
-MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/log:/root/ros2_ws/log"
+# mkdir -p $PKG_ROOT_DIR/tmp/{build,install,log}
+# MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/build:/root/ros2_ws/build"
+# MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/install:/root/ros2_ws/install"
+# MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/log:/root/ros2_ws/log"
 
 # -e XDG_RUNTIME_DIR=/tmp/runtime-root \
 if grep -qi microsoft /proc/version; then # Check if running in WSL
   docker run -it --name $CONTAINER_NAME \
+      --network host \
       --gpus all --device=/dev/dxg \
       -e DISPLAY=$DISPLAY \
       -e WAYLAND_DISPLAY=$WAYLAND_DISPLAY \
