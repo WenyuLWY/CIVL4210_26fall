@@ -43,6 +43,8 @@ RUN pip install transforms3d pyyaml
 # RUN pip install setuptools==58.2.0
 # RUN apt-get update && apt-get install -y libpcap-dev
 
+RUN apt-get update && apt-get install -y ros-humble-rqt* ros-humble-tf2-ros ros-humble-tf2-sensor-msgs
+
 RUN mkdir -p /root/ros2_ws/src && \
     cd ~/ros2_ws && \
     bash -c "source /opt/ros/humble/setup.bash && colcon build" && \
