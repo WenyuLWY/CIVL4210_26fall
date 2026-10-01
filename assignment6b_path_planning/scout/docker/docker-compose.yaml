@@ -1,0 +1,29 @@
+name: $PROJECT_NAME
+services:
+  simulation:
+    build:
+      context: .
+      dockerfile: sim.Dockerfile
+    command: ["bash","/root/start.sh"]
+    # command: bash
+    tty: true
+    stdin_open: true
+    volumes:
+      - ../src:/root/catkin_ws/src
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+      - /dev:/dev 
+      - /etc/localtime:/etc/localtime:ro
+      - ${XAUTHORITY}:${XAUTHORITY}:ro
+    environment:
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XAUTHORITY=${XAUTHORITY}
+      - NVIDIA_VISIBLE_DEVICES=all
+      - NVIDIA_DRIVER_CAPABILITIES=all
+    deploy:
+        resources:
+          reservations:
+            devices:
+              - driver: nvidia
+                count: 1
+                capabilities: [gpu]

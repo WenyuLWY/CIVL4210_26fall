@@ -76,6 +76,8 @@ RUN echo "#!/bin/bash" > /root/start.sh && \
     echo "JOBS=\$((CORES>1 ? CORES-1 : 1))" >> /root/start.sh && \
     echo "catkin build -j\$JOBS" >> /root/start.sh && \
     echo "source ~/catkin_ws/devel/setup.bash" >> /root/start.sh && \
+    echo "export DISABLE_ROS1_EOL_WARNINGS=1" >> /root/start.sh && \
+    echo "roslaunch robot_simulation run.launch" >> /root/start.sh && \
     echo "exec \"\$@\"" >> /root/start.sh && \
     chmod +x /root/start.sh
 

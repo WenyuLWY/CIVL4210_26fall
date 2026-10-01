@@ -39,3 +39,5 @@ git lfs untrack "assignment6b_path_planning/unitree/docker/smith_hall_2nd_floor.
 
 docker pull joriswenyuli/ros_go2_sim
 bash run.sh
+
+docker compose -p civl4210 up --build -d
