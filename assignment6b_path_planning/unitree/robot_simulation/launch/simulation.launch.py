@@ -27,21 +27,21 @@ def generate_launch_description():
         output='screen'
     )
 
-    static_transform_node = Node(
-            package='tf2_ros',
-            executable='static_transform_publisher',
-            name='map_to_odom_tf',
-            output='screen',
-            arguments=['--x', '0',
-                        '--y', '0',
-                        '--z', '0',
-                        '--yaw', '0',
-                        '--pitch', '0',
-                        '--roll', '0',
-                        '--frame-id', 'map',
-                        '--child-frame-id', 'odom',
-                    ],
-        )
+    # static_transform_node = Node(
+    #         package='tf2_ros',
+    #         executable='static_transform_publisher',
+    #         name='map_to_odom_tf',
+    #         output='screen',
+    #         arguments=['--x', '0',
+    #                     '--y', '0',
+    #                     '--z', '0',
+    #                     '--yaw', '0',
+    #                     '--pitch', '0',
+    #                     '--roll', '0',
+    #                     '--frame-id', 'map',
+    #                     '--child-frame-id', 'odom',
+    #                 ],
+    #     )
 
 
     autonomy_stack_go2 = IncludeLaunchDescription(
@@ -57,6 +57,6 @@ def generate_launch_description():
     return LaunchDescription([
         gazebo_velodyne,
         topic_transform_node,
-        static_transform_node,
+        # static_transform_node,
         autonomy_stack_go2
     ])

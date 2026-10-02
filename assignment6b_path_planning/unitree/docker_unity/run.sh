@@ -16,12 +16,12 @@ MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/.vscode:/root/ros2_ws/src/.vscode"
 MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/.git:/root/ros2_ws/src/.git"
 
 
-for path in "$PKG_ROOT_DIR"/*; do
-    name=$(basename "$path")
-    if [ "$name" != "tmp" ]; then
-        MOUNT_ARGS="$MOUNT_ARGS -v $path:/root/ros2_ws/src/$name"
-    fi
-done
+# for path in "$PKG_ROOT_DIR"/*; do
+#     name=$(basename "$path")
+#     if [ "$name" != "tmp" ]; then
+#         MOUNT_ARGS="$MOUNT_ARGS -v $path:/root/ros2_ws/src/$name"
+#     fi
+# done
 # mkdir -p $PKG_ROOT_DIR/tmp/{build,install,log}
 # MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/build:/root/ros2_ws/build"
 # MOUNT_ARGS="$MOUNT_ARGS -v $PKG_ROOT_DIR/tmp/install:/root/ros2_ws/install"

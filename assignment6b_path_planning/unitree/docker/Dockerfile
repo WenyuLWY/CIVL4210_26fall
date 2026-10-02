@@ -55,6 +55,7 @@ RUN echo "#!/bin/bash" > /root/start.sh && \
     echo "source /opt/ros/humble/setup.bash" >> /root/start.sh && \
     echo "colcon build" >> /root/start.sh && \
     echo "source /root/ros2_ws/install/setup.bash" >> /root/start.sh && \
+    echo "ros2 launch robot_simulation simulation.launch.py" >> /root/start.sh && \
     echo "exec \"\$@\"" >> /root/start.sh && \
     chmod +x /root/start.sh
 

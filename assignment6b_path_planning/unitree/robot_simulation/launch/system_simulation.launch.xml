@@ -2,7 +2,7 @@
 
   <arg name="world_name" default="unity"/>
   <arg name="vehicleHeight" default="0.366"/>
-  <arg name="sensorOffsetX" default="0.0"/>
+  <arg name="sensorOffsetX" default="0.3"/>
   <arg name="sensorOffsetY" default="0.0"/>
   <arg name="cameraOffsetZ" default="0.0"/>
   <arg name="vehicleX" default="0.0"/>
@@ -61,6 +61,6 @@
     <param name="depth_raw_out_topic" value="/camera/depth/raw"/>
   </node> -->
 
-  <!-- <node launch-prefix="nice" pkg="rviz2" exec="rviz2" name="rvizGA" args="-d $(find-pkg-share vehicle_simulator)/rviz/vehicle_simulator.rviz"/> -->
+  <node launch-prefix="nice" pkg="rviz2" exec="rviz2" name="rvizGA" args="-d $(find-pkg-share vehicle_simulator)/rviz/vehicle_simulator.rviz"/>
 
 </launch>

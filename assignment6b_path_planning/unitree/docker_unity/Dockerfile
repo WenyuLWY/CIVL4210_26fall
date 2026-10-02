@@ -39,7 +39,7 @@ RUN echo "#!/bin/bash" > /root/start.sh && \
     echo "source /opt/ros/humble/setup.bash" >> /root/start.sh && \
     echo "source /root/ros2_ws/install/setup.bash" >> /root/start.sh && \
     echo "cd /root/ros2_ws/src/autonomy_stack_go2" >> /root/start.sh && \
-    echo "./system_simulation.sh" >> /root/start.sh && \
+    # echo "./system_simulation.sh" >> /root/start.sh && \
     # echo "colcon build  --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release" >> /root/start.sh && \
     echo "exec \"\$@\"" >> /root/start.sh && \
     chmod +x /root/start.sh
