@@ -13,7 +13,7 @@
   <!-- terrain_analysis -->
   <arg name="useSorting" default="false"/>
   <arg name="quantileZ" default="0.25"/>
-  <arg name="considerDrop" default="false"/>
+  <arg name="considerDrop" default="false"/> <!-- important -->
   <arg name="limitGroundLift" default="false"/>
   <arg name="maxGroundLift" default="0.15"/>
   <arg name="clearDyObs" default="false"/> 

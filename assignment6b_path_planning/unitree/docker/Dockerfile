@@ -43,19 +43,38 @@ RUN pip install transforms3d pyyaml
 # RUN pip install setuptools==58.2.0
 # RUN apt-get update && apt-get install -y libpcap-dev
 
-RUN apt-get update && apt-get install -y ros-humble-rqt* ros-humble-tf2-ros ros-humble-tf2-sensor-msgs
+RUN apt-get update && apt-get install -y ros-humble-rqt* ros-humble-tf2-ros ros-humble-tf2-sensor-msgs ros-humble-pointcloud-to-laserscan
+
+RUN mkdir -p /root/dependencies_ros2_ws/src && \
+    cd ~/dependencies_ros2_ws && \
+    git clone https://github.com/MOGI-ROS/mogi_trajectory_server.git src/mogi_trajectory_server && \
+    bash -c "source /opt/ros/humble/setup.bash && colcon build" && \
+    echo "source /root/dependencies_ros2_ws/install/setup.bash" >> ~/.bashrc
+
+
+
+# RUN git clone https://github.com/WenyuLWY/autonomy_stack_go2.git /root/dependencies_ros2_ws/src/autonomy_stack_go2
+# RUN git clone https://github.com/WenyuLWY/unitree-go2-ros2 /root/dependencies_ros2_ws/src/unitree-go2-ros2
+
+
+
+RUN cd ~/dependencies_ros2_ws && \
+    bash -c "source /opt/ros/humble/setup.bash && colcon build"
 
 RUN mkdir -p /root/ros2_ws/src && \
     cd ~/ros2_ws && \
-    bash -c "source /opt/ros/humble/setup.bash && colcon build" && \
+    bash -c "source /opt/ros/humble/setup.bash && colcon build --symlink-install" && \
     echo "source /root/ros2_ws/install/setup.bash" >> ~/.bashrc
+
+RUN apt-get update && apt-get install -y ros-humble-realsense2-description ros-humble-gz-ros2-control  ros-humble-joint-state-publisher ros-humble-joint-state-publisher-gui
 
 RUN echo "#!/bin/bash" > /root/start.sh && \
     echo "cd /root/ros2_ws" >> /root/start.sh && \
     echo "source /opt/ros/humble/setup.bash" >> /root/start.sh && \
-    echo "colcon build" >> /root/start.sh && \
+    echo "source /root/dependencies_ros2_ws/install/setup.bash" >> /root/start.sh && \
+    echo "colcon build --symlink-install" >> /root/start.sh && \
     echo "source /root/ros2_ws/install/setup.bash" >> /root/start.sh && \
-    echo "ros2 launch robot_simulation simulation.launch.py" >> /root/start.sh && \
+    # echo "ros2 launch robot_simulation simulation.launch.py" >> /root/start.sh && \
     echo "exec \"\$@\"" >> /root/start.sh && \
     chmod +x /root/start.sh
 
